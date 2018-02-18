@@ -58,6 +58,9 @@ public class RNOpenTokPublisherView extends RNOpenTokView implements PublisherKi
 
         mPublisher.setPublishAudio(mAudioEnabled);
         mPublisher.setPublishVideo(mVideoEnabled);
+        
+        /** Remove aspect ratio constraint **/
+        mPublisher.getRenderer().setStyle(BaseVideoRenderer.STYLE_VIDEO_SCALE, BaseVideoRenderer.STYLE_VIDEO_FILL);
 
         Session session = RNOpenTokSessionManager.getSessionManager().getSession(mSessionId);
         session.publish(mPublisher);
