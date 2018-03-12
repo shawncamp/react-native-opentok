@@ -64,19 +64,27 @@ public class RNOpenTokSessionManager implements Session.SessionListener, Session
     }
 
     public void disconnectSession(String sessionId) {
-        Session session = this.mSessions.get(sessionId);
+        try {
+            Session session = this.mSessions.get(sessionId);
 
-        if (session != null) {
-            session.disconnect();
-            this.mSessions.remove(sessionId);
+            if (session != null) {
+                session.disconnect();
+                this.mSessions.remove(sessionId);
+            }
+        } catch (Exception err) {
+            err.printStackTrace();
         }
     }
 
     public void disconnectAllSessions() {
-        for (Session session: this.mSessions.values()) {
-            session.disconnect();
+        try {
+            for (Session session: this.mSessions.values()) {
+                session.disconnect();
+            }
+            this.mSessions.clear();
+        } catch (Exception err) {
+            err.printStackTrace();
         }
-        this.mSessions.clear();
     }
 
     public void setSubscriberListener (String sessionId, RNOpenTokSubscriberView subscriber) {
